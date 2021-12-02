@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Text, View, Image, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 
-export default function Block({title, onPress, image}) {
+export default function ButtonArea({title, onPress, image}) {
   return (
     <TouchableOpacity style={[styles.blockstyle, styles.shadow]}>
        
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 
    header: {
     fontSize: 20,
-    fontWeight: 500,
+    fontWeight: "500",
     paddingLeft:16,
    },
    shadow: {

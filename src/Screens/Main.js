@@ -2,49 +2,47 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Image, TouchableOpacity, SafeAreaView } from 'react-native';
 import axios from 'axios';
 
-import Block from '../Components/Block';
-
 export default function Main({navigation}) {
-    const [breeds, setBreeds] = useState([]);
+    // const [breeds, setBreeds] = useState([]);
 
-    const getBreads = async () => {
-      try {
-        const response = await axios.get('https://api.thecatapi.com/v1/breeds');
-        const breeds = response.data;
-        console.log('breeds', breeds);
-        setBreeds(breeds);
-      } catch (error) {
-        console.log(error);
-      } 
-    }
+    // const getBreads = async () => {
+    //   try {
+    //     const response = await axios.get('https://api.thecatapi.com/v1/breeds');
+    //     const breeds = response.data;
+    //     console.log('breeds', breeds);
+    //     setBreeds(breeds);
+    //   } catch (error) {
+    //     console.log(error);
+    //   } 
+    // }
   
-    const getPromisedBreeds = () => {
-    axios.get('https://api.thecatapi.com/v1/breeds')
-    .then(function (response) {
-      // handle success
-      const breeds = response.data;
-        console.log('breeds', breeds);
-        setBreeds(breeds);
-      console.log('RESPONSE', response);
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    })
-    .then(function () {
-      // always executed
-    });}
+    // const getPromisedBreeds = () => {
+    // axios.get('https://api.thecatapi.com/v1/breeds')
+    // .then(function (response) {
+    //   // handle success
+    //   const breeds = response.data;
+    //     console.log('breeds', breeds);
+    //     setBreeds(breeds);
+    //   console.log('RESPONSE', response);
+    // })
+    // .catch(function (error) {
+    //   // handle error
+    //   console.log(error);
+    // })
+    // .then(function () {
+    //   // always executed
+    // });}
   
   
   
-    useEffect(() => {
-      getPromisedBreeds();
-    }, [])
+    // useEffect(() => {
+    //   getPromisedBreeds();
+    // }, [])
   
     return (
       <SafeAreaView> 
         <View style={styles.container}>
-            {breeds.map(breed => (
+            {/* {breeds.map(breed => (
                <TouchableOpacity style={[styles.blockstyle, styles.shadow]}>
                    <Image style={styles.picture} source={{ uri: breed.image?.url}} />
                    <View style={{flexDirection: 'column'}}>
@@ -55,8 +53,14 @@ favorite, it helps me to...`}
                        </Text>
                    </View>
                </TouchableOpacity>
-            ))}
-        
+            ))} */}
+
+
+        {/* <View style={styles.tabstyle}>
+            {/* <TouchableOpacity>
+                <Image  source={{'pictures/Home.png'}/>
+            </TouchableOpacity> 
+        </View> */}
         </View>
       </SafeAreaView> 
     );
@@ -84,14 +88,14 @@ favorite, it helps me to...`}
     
        header: {
         fontSize: 20,
-        fontWeight: 700,
+        fontWeight: "700",
         marginTop:16,
         color: '#333333'
         
        },
        textstyle: {
         fontSize: 14,
-        fontWeight: 500,
+        fontWeight: "500",
         marginTop:30,
         marginLeft: 5,
         color: '#4F4F4F'
@@ -112,5 +116,12 @@ favorite, it helps me to...`}
          height: 128,
          width: 130,
          borderRadius:8,
+      }, 
+      tabstyle:{
+        backgroundColor:'green',
+        width: '100%',
+        height:100,
+        flexDirection:'row',
+
       }
   });
