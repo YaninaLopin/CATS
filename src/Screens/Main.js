@@ -1,49 +1,53 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Image, TouchableOpacity, SafeAreaView } from 'react-native';
+import { Text, View, StyleSheet, Image, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 import axios from 'axios';
 
-export default function Main({navigation}) {
-    // const [breeds, setBreeds] = useState([]);
+export default function Main({navigation, route}) {
+    const [breeds, setBreeds] = useState([]);
 
-    // const getBreads = async () => {
-    //   try {
-    //     const response = await axios.get('https://api.thecatapi.com/v1/breeds');
-    //     const breeds = response.data;
-    //     console.log('breeds', breeds);
-    //     setBreeds(breeds);
-    //   } catch (error) {
-    //     console.log(error);
-    //   } 
-    // }
+    const getBreads = async () => {
+      try {
+        const response = await axios.get('https://api.thecatapi.com/v1/breeds');
+        const breeds = response.data;
+        console.log('breeds', breeds);
+        setBreeds(breeds);
+      } catch (error) {
+        console.log(error);
+      } 
+    }
   
-    // const getPromisedBreeds = () => {
-    // axios.get('https://api.thecatapi.com/v1/breeds')
-    // .then(function (response) {
-    //   // handle success
-    //   const breeds = response.data;
-    //     console.log('breeds', breeds);
-    //     setBreeds(breeds);
-    //   console.log('RESPONSE', response);
-    // })
-    // .catch(function (error) {
-    //   // handle error
-    //   console.log(error);
-    // })
-    // .then(function () {
-    //   // always executed
-    // });}
+    const getPromisedBreeds = () => {
+    axios.get('https://api.thecatapi.com/v1/breeds')
+    .then(function (response) {
+      // handle success
+      const breeds = response.data;
+        console.log('breeds', breeds);
+        setBreeds(breeds);
+      console.log('RESPONSE', response);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .then(function () {
+      // always executed
+    });}
   
   
   
-    // useEffect(() => {
-    //   getPromisedBreeds();
-    // }, [])
+    useEffect(() => {
+      getPromisedBreeds();
+    }, [])
   
     return (
       <SafeAreaView> 
+      <ScrollView>
         <View style={styles.container}>
-            {/* {breeds.map(breed => (
-               <TouchableOpacity style={[styles.blockstyle, styles.shadow]}>
+            {breeds.map(breed => (
+               <TouchableOpacity 
+                  style={[styles.blockstyle, styles.shadow]}   
+                  onPress={() => navigation.navigate('ChosenCat',{breed})}
+               >
                    <Image style={styles.picture} source={{ uri: breed.image?.url}} />
                    <View style={{flexDirection: 'column'}}>
                       <Text style ={styles.header}> {breed.name}</Text> 
@@ -53,15 +57,10 @@ favorite, it helps me to...`}
                        </Text>
                    </View>
                </TouchableOpacity>
-            ))} */}
+            ))}
 
-
-        {/* <View style={styles.tabstyle}>
-            {/* <TouchableOpacity>
-                <Image  source={{'pictures/Home.png'}/>
-            </TouchableOpacity> 
-        </View> */}
         </View>
+        </ScrollView>  
       </SafeAreaView> 
     );
   }
@@ -71,7 +70,7 @@ favorite, it helps me to...`}
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#E5E5E5',
+      backgroundColor: '#F3F3F8',
       padding: 8,
     },
     
@@ -108,8 +107,9 @@ favorite, it helps me to...`}
           height: 1,
         },
         shadowOpacity: 0.7,
-        shadowRadius: 3.84,
+        shadowRadius: 1.84,
       },
+   
       picture:{
          marginTop:1, 
          marginLeft:5,
