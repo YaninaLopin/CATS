@@ -9,7 +9,7 @@ export default function Main({navigation, route}) {
       try {
         const response = await axios.get('https://api.thecatapi.com/v1/breeds');
         const breeds = response.data;
-        console.log('breeds', breeds);
+        //console.log('breeds', breeds);
         setBreeds(breeds);
       } catch (error) {
         console.log(error);
@@ -21,9 +21,9 @@ export default function Main({navigation, route}) {
     .then(function (response) {
       // handle success
       const breeds = response.data;
-        console.log('breeds', breeds);
+        //console.log('breeds', breeds);
         setBreeds(breeds);
-      console.log('RESPONSE', response);
+      //console.log('RESPONSE', response);
     })
     .catch(function (error) {
       // handle error
@@ -32,8 +32,6 @@ export default function Main({navigation, route}) {
     .then(function () {
       // always executed
     });}
-  
-  
   
     useEffect(() => {
       getPromisedBreeds();
@@ -117,11 +115,5 @@ favorite, it helps me to...`}
          width: 130,
          borderRadius:8,
       }, 
-      tabstyle:{
-        backgroundColor:'green',
-        width: '100%',
-        height:100,
-        flexDirection:'row',
-
-      }
+     
   });

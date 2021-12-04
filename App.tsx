@@ -15,8 +15,7 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 axios.defaults.baseURL = 'https://api.thecatapi.com/v1';
-
-//axios.defaults.headers['x-api-key'] = 'c8e9e444-da06-41c8-b094-581f2ccc1d5e';
+axios.defaults.headers["x-api-key"] = "c8e9e444-da06-41c8-b094-581f2ccc1d5e";
 
 const StackNavigator = () => {
   return (
@@ -62,7 +61,7 @@ export default function App() {
                     component={StackNavigator}
                  /> 
                   <Tab.Screen
-                     name="Favourites"
+                    name="Favourites"
                     options={{ headerShown: false }}
                     component={Favourites}
                  /> 
