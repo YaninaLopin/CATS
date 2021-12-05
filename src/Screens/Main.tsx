@@ -2,8 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Image, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 import axios from 'axios';
 
-export default function Main({navigation, route}) {
-    const [breeds, setBreeds] = useState([]);
+import { Breed } from '../types/breed';
+
+interface IProps {
+  navigation: any;
+  route: {
+    params: {
+      
+    }
+  }
+}
+
+export default function Main({navigation, route}:  IProps) {
+    const [breeds, setBreeds] = useState<Breed[]>([]);
 
     const getBreads = async () => {
       try {
@@ -40,18 +51,19 @@ export default function Main({navigation, route}) {
     return (
       <SafeAreaView> 
       <ScrollView>
+        
         <View style={styles.container}>
             {breeds.map(breed => (
                <TouchableOpacity 
                   style={[styles.blockstyle, styles.shadow]}   
                   onPress={() => navigation.navigate('ChosenCat',{breed})}
+                  key = {breed.id}
                >
                    <Image style={styles.picture} source={{ uri: breed.image?.url}} />
                    <View style={{flexDirection: 'column'}}>
                       <Text style ={styles.header}> {breed.name}</Text> 
                        <Text style ={styles.textstyle}> 
-                         {`Taking care of a pet is my 
-favorite, it helps me to...`}
+                         {breed.description.substring(0,40)}
                        </Text>
                    </View>
                </TouchableOpacity>
@@ -76,8 +88,8 @@ favorite, it helps me to...`}
         flexDirection: 'row',
         height: 130,
         marginTop: 25,
-        marginLeft: 25,
-        width: 327,
+        marginHorizontal: 20,
+        //width: "auto",
         backgroundColor: '#F5F5FA',
         borderRadius: 16,
 

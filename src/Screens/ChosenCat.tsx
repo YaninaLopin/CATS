@@ -1,8 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Image, TouchableOpacity, SafeAreaView } from 'react-native';
+import { Text, View, StyleSheet, Image, TouchableOpacity, SafeAreaView, Platform } from 'react-native';
 import axios from 'axios';
+import { Breed } from '../types/breed';
+import {getNewImage} from '../api/randompicture';
 
-export default function ChosenCat({navigation,route}) {
+
+interface INavigation {
+  navigation: any;
+}
+
+interface IRoute<T> {
+  route: {
+    params: T
+  }
+}
+
+interface IParams {
+  breed: Breed,
+  title: string;
+}
+
+interface IProps extends INavigation, IRoute<IParams> {};
+
+type BreedList = Breed[];
+
+const sum = (a: number, b:number):number => {
+  return a + b;
+}
+
+
+export default function ChosenCat({navigation,route}: IProps) {
+  const t = sum(4,5);
   const { breed } = route.params;
   const [image, setImage] = useState(breed.image);
   
@@ -21,25 +49,32 @@ export default function ChosenCat({navigation,route}) {
     }
   };
 
-  const getNewImage = async () => {
-    try {
-      const response = await axios.get(
-        `images/search?breed_id=${breed.id}&include_breeds=false`
-      );
-      const newcats = response.data;
-     // console.log('newcats', newcats);
-      if (newcats.length > 0) {
-       // console.log(breeds[0]);
-        setImage(newcats[0]);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const getNewImage = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `images/search?breed_id=${breed.id}&include_breeds=false`
+  //     );
+  //     const newcats = response.data;
+  //    // console.log('newcats', newcats);
+  //     if (newcats.length > 0) {
+  //      // console.log(breeds[0]);
+  //       setImage(newcats[0]);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   
   // useEffect(() => {
   //   getNewImage();
   // }, [])
+
+  const changeImage = async () => {
+    // getNewImage(breed.id);
+     const imageNew= await getNewImage(breed.id);
+     if (imageNew) {setImage(imageNew)}
+    
+  }
 
     return (
  
@@ -47,7 +82,7 @@ export default function ChosenCat({navigation,route}) {
         <TouchableOpacity 
             style={[styles.button,styles.shadow]}    
             onPress={() => navigation.goBack()}> 
-            <Image style={{width:10, height:10}} source={{ uri:'/Users/yaninarekut/Desktop/Projects/CATS/pictures/Icon.png'}} />
+            <Image style={{width:10, height:10}} source={require('../../pictures/Icon.png')} />
         </TouchableOpacity>
 
         <Image style={styles.image} source={{ uri: image.url}} />
@@ -61,7 +96,7 @@ me to...`}
           
       <TouchableOpacity 
            style={styles.button1}
-           onPress={() => getNewImage()}> 
+           onPress={() => changeImage()}> 
           <Text style={styles.buttontext}>Другое фото</Text>
       </TouchableOpacity>
 

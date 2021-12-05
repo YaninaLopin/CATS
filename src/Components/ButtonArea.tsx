@@ -1,7 +1,15 @@
 import * as React from 'react';
 import { Text, View, Image, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 
-export default function ButtonArea({title, onPress, image}) {
+interface IProps {
+  title:  string;
+  onPress?: () => void;
+  setTitle?: (text: string) => void;
+  getTitle?: () => string;
+  image?: string;
+}
+
+export default function ButtonArea({title, onPress, image}: IProps) {
   return (
     <TouchableOpacity style={[styles.blockstyle, styles.shadow]}>
        

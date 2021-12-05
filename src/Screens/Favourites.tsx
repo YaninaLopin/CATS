@@ -35,8 +35,10 @@ export default function Favourites({navigation}) {
         <View style={styles.container}>
             {favCats.map(favCat => (
                <TouchableOpacity 
-                  style={[styles.blockstyle, styles.shadow]}>
-                   <Image style={styles.picture} source={{ uri: favCat.image?.url}} />
+                  style={[styles.blockstyle, styles.shadow]}
+                  key={favCat.id}>
+                   <Image style={styles.picture} source={{ uri: favCat.image?.url}}
+                   />
                    {/* <Text> {favCat.id} </Text>  */}
                </TouchableOpacity>
             ))}
