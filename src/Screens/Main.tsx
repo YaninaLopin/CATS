@@ -12,13 +12,15 @@ interface IProps {
     }
   }
 }
+// сделать api в отдельных файлах
+// обновление favorites
 
 export default function Main({navigation, route}:  IProps) {
     const [breeds, setBreeds] = useState<Breed[]>([]);
 
     const getBreads = async () => {
       try {
-        const response = await axios.get('https://api.thecatapi.com/v1/breeds');
+        const response = await axios.get('breeds');
         const breeds = response.data;
         //console.log('breeds', breeds);
         setBreeds(breeds);
@@ -28,7 +30,7 @@ export default function Main({navigation, route}:  IProps) {
     }
   
     const getPromisedBreeds = () => {
-    axios.get('https://api.thecatapi.com/v1/breeds')
+    axios.get('breeds')
     .then(function (response) {
       // handle success
       const breeds = response.data;
@@ -60,10 +62,10 @@ export default function Main({navigation, route}:  IProps) {
                   key = {breed.id}
                >
                    <Image style={styles.picture} source={{ uri: breed.image?.url}} />
-                   <View style={{flexDirection: 'column'}}>
+                   <View style={styles.textblock}>
                       <Text style ={styles.header}> {breed.name}</Text> 
                        <Text style ={styles.textstyle}> 
-                         {breed.description.substring(0,40)}
+                         {breed.description.substring(0,80)}  ... 
                        </Text>
                    </View>
                </TouchableOpacity>
@@ -89,10 +91,13 @@ export default function Main({navigation, route}:  IProps) {
         height: 130,
         marginTop: 25,
         marginHorizontal: 20,
-        //width: "auto",
+        width: "auto",
         backgroundColor: '#F5F5FA',
         borderRadius: 16,
-
+      },
+    
+      textblock: {
+        flex:1,
       },
     
        header: {
@@ -105,7 +110,7 @@ export default function Main({navigation, route}:  IProps) {
        textstyle: {
         fontSize: 14,
         fontWeight: "500",
-        marginTop:30,
+        marginTop:10,
         marginLeft: 5,
         color: '#4F4F4F'
         

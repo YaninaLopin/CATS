@@ -3,8 +3,6 @@ import { Text, View, StyleSheet, Image, TouchableOpacity, SafeAreaView, ScrollVi
 import axios from 'axios';
 
 export default function Favourites({navigation}) {
-  axios.defaults.baseURL = 'https://api.thecatapi.com/v1';
-  axios.defaults.headers["x-api-key"] = "c8e9e444-da06-41c8-b094-581f2ccc1d5e";  
   
   const [favCats, setFavCats] = useState([]);
 

@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, Image, TouchableOpacity, SafeAreaView, Platform
 import axios from 'axios';
 import { Breed } from '../types/breed';
 import {getNewImage} from '../api/randompicture';
+import { Ionicons } from '@expo/vector-icons'; 
 
 
 interface INavigation {
@@ -33,9 +34,6 @@ export default function ChosenCat({navigation,route}: IProps) {
   const t = sum(4,5);
   const { breed } = route.params;
   const [image, setImage] = useState(breed.image);
-  
-  axios.defaults.baseURL = 'https://api.thecatapi.com/v1';
-  axios.defaults.headers["x-api-key"] = "c8e9e444-da06-41c8-b094-581f2ccc1d5e";  
 
    const addToFavorites = async () => {
     try {
@@ -82,15 +80,15 @@ export default function ChosenCat({navigation,route}: IProps) {
         <TouchableOpacity 
             style={[styles.button,styles.shadow]}    
             onPress={() => navigation.goBack()}> 
-            <Image style={{width:10, height:10}} source={require('../../pictures/Icon.png')} />
+            {/* <Image style={{width:10, height:10}} source={require('../../pictures/Icon.png')} /> */}
+            <Ionicons name="chevron-back" size={24} color="#5533EA" />
         </TouchableOpacity>
 
         <Image style={styles.image} source={{ uri: image.url}} />
 
         <Text style ={styles.header}> {breed.name}</Text> 
                        <Text style ={styles.textstyle}> 
-                         {`Taking care of a pet is my favorite, it helps 
-me to...`}
+                         {breed.description}
                        </Text>
       <View style={styles.buttoncointainer}>
           
@@ -160,11 +158,7 @@ me to...`}
       justifyContent: 'center',
       alignItems: 'center',
     },
-    buttontext: {
-      fontSize:24,
-      fontWeight:"600",
-      color: '#5533EA'
-    },
+
     header: {
       fontSize: 20,
       fontWeight: "700",

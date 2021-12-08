@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { BreedImage } from '../types/breed';
+import apiClient from './index';
 
 export const getNewImage = async (breedId:string|number): Promise< BreedImage | undefined > => {
     try {
