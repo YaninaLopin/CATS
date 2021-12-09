@@ -1,31 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Image, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 import axios from 'axios';
+import { getFavoriteCats } from '../api/getFavourites';
+import { Breed } from '../types/breed';
+import { useFocusEffect } from '@react-navigation/native';
 
-export default function Favourites({navigation}) {
+interface IProps {
+  navigation: any;
+  route: {
+    params: {    
+    }
+  }
+}
+
+// interface IParams {
+//   breed: Breed,
+//   title: string;
+// }
+
+export default function Favourites({navigation}: IProps) {
+
+  
   
   const [favCats, setFavCats] = useState([]);
 
-  const getFavoriteCats = () => {
-    axios.get('favourites')
-    .then(function (response) {
-      const favCats = response.data;
-        console.log('favCats', favCats);
-        setFavCats(favCats);
-      console.log('RESPONSE', response);
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    })
-    .then(function () {
-      // always executed
-    });}
+  const loadFavorites =  () => {
+    getFavoriteCats()
+      .then(favCats => setFavCats(favCats))
+      .catch(error => console.log(error))
+  }
   
-    useEffect(() => {
-      getFavoriteCats();
-    }, [])
- 
+  useEffect(() => {loadFavorites();
+  }, [])
+
+  useFocusEffect(loadFavorites);
   
     return (
       <SafeAreaView> 
@@ -35,9 +43,7 @@ export default function Favourites({navigation}) {
                <TouchableOpacity 
                   style={[styles.blockstyle, styles.shadow]}
                   key={favCat.id}>
-                   <Image style={styles.picture} source={{ uri: favCat.image?.url}}
-                   />
-                   {/* <Text> {favCat.id} </Text>  */}
+                  <Image style={styles.picture} source={{ uri: favCat.image?.url}}/>
                </TouchableOpacity>
             ))}
 

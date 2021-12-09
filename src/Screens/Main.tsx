@@ -1,54 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Image, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 import axios from 'axios';
+import { getBreeds } from '../api/breeds';
 
 import { Breed } from '../types/breed';
 
 interface IProps {
   navigation: any;
   route: {
-    params: {
-      
+    params: {    
     }
   }
 }
-// сделать api в отдельных файлах
-// обновление favorites
 
 export default function Main({navigation, route}:  IProps) {
     const [breeds, setBreeds] = useState<Breed[]>([]);
 
-    const getBreads = async () => {
-      try {
-        const response = await axios.get('breeds');
-        const breeds = response.data;
-        //console.log('breeds', breeds);
-        setBreeds(breeds);
-      } catch (error) {
-        console.log(error);
-      } 
+    const loadBreeds =  () => {
+      getBreeds()
+        .then(breeds => setBreeds(breeds))
+        .catch(error => console.log(error))
     }
   
-    const getPromisedBreeds = () => {
-    axios.get('breeds')
-    .then(function (response) {
-      // handle success
-      const breeds = response.data;
-        //console.log('breeds', breeds);
-        setBreeds(breeds);
-      //console.log('RESPONSE', response);
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    })
-    .then(function () {
-      // always executed
-    });}
-  
     useEffect(() => {
-      getPromisedBreeds();
+      loadBreeds();
     }, [])
+  
   
     return (
       <SafeAreaView> 

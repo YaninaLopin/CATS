@@ -1,6 +1,7 @@
 import axios from 'axios';
+import apiClient from './index';
 
-export const getBreads = async () => {
+export const getBreeds = async () => {
     try {
       const response = await axios.get('breeds');
       const breeds = response.data;
@@ -11,19 +12,18 @@ export const getBreads = async () => {
     } 
   }
 
-  export const getPromisedBreeds = () => {
-  axios.get('breeds')
-  .then(function (response) {
-    // handle success
-    const breeds = response.data;
-      if (breeds.length > 0) {
-        //console.log(breeds[0]);
-        return breeds[0];
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-  })
-  .then(function () {
-    // always executed
-  });}
+//   export const getPromisedBreeds = () => {
+//   axios.get('breeds')
+//   .then((response) => {
+//       const breeds = response.data;
+//       if (breeds.length > 0) {
+//         return breeds
+//     }})
+//   .catch(function (error) {
+//     // handle error
+//     console.log(error);
+//   })
+//   .then(function () {
+//     // always executed
+//   })
+// }

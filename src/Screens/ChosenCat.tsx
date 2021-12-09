@@ -3,8 +3,8 @@ import { Text, View, StyleSheet, Image, TouchableOpacity, SafeAreaView, Platform
 import axios from 'axios';
 import { Breed } from '../types/breed';
 import {getNewImage} from '../api/randompicture';
+import { addToFavorites } from '../api/addToFavourites';
 import { Ionicons } from '@expo/vector-icons'; 
-
 
 interface INavigation {
   navigation: any;
@@ -29,50 +29,20 @@ const sum = (a: number, b:number):number => {
   return a + b;
 }
 
-
 export default function ChosenCat({navigation,route}: IProps) {
   const t = sum(4,5);
   const { breed } = route.params;
   const [image, setImage] = useState(breed.image);
 
-   const addToFavorites = async () => {
-    try {
-      const response = await axios.post(`favourites`, {
-        image_id: image.id,
-      });
-      const data = response.data;
-     // console.log('data', data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // const getNewImage = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       `images/search?breed_id=${breed.id}&include_breeds=false`
-  //     );
-  //     const newcats = response.data;
-  //    // console.log('newcats', newcats);
-  //     if (newcats.length > 0) {
-  //      // console.log(breeds[0]);
-  //       setImage(newcats[0]);
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  
-  // useEffect(() => {
-  //   getNewImage();
-  // }, [])
 
   const changeImage = async () => {
-    // getNewImage(breed.id);
      const imageNew= await getNewImage(breed.id);
      if (imageNew) {setImage(imageNew)}
-    
   }
+  
+  const addFavorite = () => {
+    addToFavorites(image.id);
+  };
 
     return (
  
@@ -88,7 +58,7 @@ export default function ChosenCat({navigation,route}: IProps) {
 
         <Text style ={styles.header}> {breed.name}</Text> 
                        <Text style ={styles.textstyle}> 
-                         {breed.description}
+                           {breed.description}
                        </Text>
       <View style={styles.buttoncointainer}>
           
@@ -100,7 +70,7 @@ export default function ChosenCat({navigation,route}: IProps) {
 
       <TouchableOpacity 
           style={styles.button2}
-          onPress={() => addToFavorites()}> 
+          onPress={() => addFavorite()}> 
           <Text style={styles.buttontext}>Добавить в избранное</Text>
       </TouchableOpacity>
 
@@ -141,7 +111,6 @@ export default function ChosenCat({navigation,route}: IProps) {
     button1: {
       width: 121,
       height: 40,
-     // marginLeft: 10,
       marginTop:35,
       borderRadius: 12, 
       backgroundColor:'#FFFFFF', 
